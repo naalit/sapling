@@ -10,6 +10,8 @@ function GetTreeRepresentation(rootNode)
             text : node.text,
             color : node.color,
             text_color : node.text_color,
+            arrow_color : node.arrow_color,
+            draw_circle : node.draw_circle,
             isRoot : !node.parent,
         }
 
@@ -68,6 +70,8 @@ function LoadTreeRepresentation(treeRep)
         node.text = data.text
         node.color = data.color
         node.text_color = data.text_color || "dark"
+        node.arrow_color = data.arrow_color || "dark"
+        node.draw_circle = data.draw_circle == undefined ? false : data.draw_circle
         node.id = id
         node.recalculate()
         node.countSpaces()

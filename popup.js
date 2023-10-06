@@ -40,6 +40,17 @@ class ContextMenu
         return FontSize*1.25
     }
 
+    hasActiveSubcontext() {
+        for (const i in this.subcontexts)
+        {
+            if (this.subcontexts[i])
+            {
+                return true
+            }
+        }
+        return false
+    }
+
     update()
     {
         let index = this.hoveringIndex()
@@ -58,7 +69,7 @@ class ContextMenu
             {
                 this.subcontexts[i].update()
 
-                if (str(index) !== i && this.subcontexts[i].hoveringIndex() === null)
+                if (str(index) !== i && this.subcontexts[i].hoveringIndex() === null && !this.subcontexts[i].hasActiveSubcontext())
                     this.subcontexts[i] = null
             }
         }

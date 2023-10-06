@@ -431,12 +431,12 @@ function Update()
                                     ["Dark", function () { node.color = "dark"; AddChange() } ],
                                 ]],
                                 ["Change Text Color", [
-                                    ["Default", function () { node.text_color = "default"; AddChange() } ],
+                                    ["Default", function () { node.text_color = "dark"; AddChange() } ],
                                     ["Highlighter", function () { node.text_color = "highlighter"; AddChange() } ],
                                     ["Blue", function () { node.text_color = "blue"; AddChange() } ],
                                     ["Red", function () { node.text_color = "red"; AddChange() } ],
                                     ["Green", function () { node.text_color = "green"; AddChange() } ],
-                                    ["Dark", function () { node.text_color = "dark"; AddChange() } ],
+                                    ["Light", function () { node.text_color = "default"; AddChange() } ],
                                 ]],
                                 ["Arrows", [
                                     ["Add", function () {
@@ -446,6 +446,18 @@ function Update()
                                     }],
                                     ["Remove All", function () {
                                         node.arrows = []
+                                        AddChange()
+                                    }],
+                                    ["Change Color", [
+                                        ["Default", function () { node.arrow_color = "dark"; AddChange() } ],
+                                        ["Highlighter", function () { node.arrow_color = "highlighter"; AddChange() } ],
+                                        ["Blue", function () { node.arrow_color = "blue"; AddChange() } ],
+                                        ["Red", function () { node.arrow_color = "red"; AddChange() } ],
+                                        ["Green", function () { node.arrow_color = "green"; AddChange() } ],
+                                        ["Light", function () { node.arrow_color = "default"; AddChange() } ],
+                                    ]],
+                                    ["Toggle Circle", function () {
+                                        node.draw_circle = !node.draw_circle
                                         AddChange()
                                     }],
                                 ]],

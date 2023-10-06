@@ -46,7 +46,7 @@ class Arrow
         return Distance(Mouse.x,Mouse.y, tox + this.xoff2, toy + this.yoff2) <= 20
     }
 
-    draw(xoff,yoff)
+    draw(xoff,yoff,fromx,fromy,cx,cy,cz)
     {
         // override the rendering functions
         // when a render target is specified
@@ -82,14 +82,14 @@ class Arrow
         xoff = xoff || 0
         yoff = yoff || 0
 
-        _stroke(0)
+        _stroke(cx,cy,cz)
         _strokeWeight(2)
         _noFill()
 
         let tox = Mouse.x + xoff
         let toy = Mouse.y + yoff
-        let fromx = this.from.x + xoff
-        let fromy = this.from.y + this.from.textHeight()/2 + 5 + yoff
+        let fromx_ = this.from.x + xoff
+        let fromy_ = this.from.y + this.from.textHeight()/2 + 5 + yoff
         if (this.to)
         {
             tox = this.to.x + xoff
@@ -105,8 +105,8 @@ class Arrow
             // allow editing of control points
             if (SelectionList[this.from.id] === this.from)
             {
-                _line(fromx,fromy, fromx + this.xoff1,fromy + this.yoff1)
-                _line(tox + this.xoff2,toy + this.yoff2, fromx + this.xoff1,fromy + this.yoff1)
+                _line(fromx,fromy, fromx_ + this.xoff1,fromy_ + this.yoff1)
+                _line(tox + this.xoff2,toy + this.yoff2, fromx_ + this.xoff1,fromy_ + this.yoff1)
                 _line(tox + this.xoff2,toy + this.yoff2, tox,toy)
 
                 if (this.hoveringPointOne())
@@ -114,7 +114,7 @@ class Arrow
                 else
                     _noFill()
 
-                _circle(fromx + this.xoff1, fromy + this.yoff1, 20)
+                _circle(fromx_ + this.xoff1, fromy_ + this.yoff1, 20)
 
                 if (this.hoveringPointTwo())
                     _fill(0)
@@ -152,7 +152,7 @@ class Arrow
             this.height = Math.max(this.height, h)
         }
 
-        _fill(0)
+        _fill(cx,cy,cz)
         _noStroke()
         _triangle(x,y, x1,y1, x2,y2)
     }

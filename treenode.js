@@ -31,6 +31,8 @@ class TreeNode
         this.dead = false
         this.color = "default"
         this.text_color = "dark"
+        this.arrow_color = "dark"
+        this.draw_circle = false
         CurrentNodeID += 1
     }
 
@@ -210,22 +212,36 @@ class TreeNode
         return 45
     }
 
-    totalHeight()
+    totalHeight(arrows=true)
     {
-        let biggestHeight = 0
+        let biggestHeight = this.textHeight()
 
         for (let i=0; i<this.children.length; i++)
         {
             biggestHeight = Math.max(biggestHeight, this.children[i].totalHeight() + this.lineHeight())
         }
 
-        for (let i=0; i<this.arrows.length; i++)
-        {
-            let arrow = this.arrows[i]
-            biggestHeight = Math.max(biggestHeight, arrow.height+8)
+        if (arrows) {
+            for (let i=0; i<this.arrows.length; i++)
+            {
+                let arrow = this.arrows[i]
+                biggestHeight = Math.max(biggestHeight, arrow.height+8)
+            }
         }
 
         return biggestHeight
+    }
+
+    totalWidth()
+    {
+        let biggestWidth = this.children.length ? 0 : this.textWidth()
+
+        for (let i=0; i<this.children.length; i++)
+        {
+            biggestWidth += this.children[i].totalWidth()
+        }
+
+        return biggestWidth
     }
 
     keyTyped(text)
@@ -550,6 +566,7 @@ class TreeNode
         let _strokeWeight = strokeWeight
         let _line = line
         let _rect = rect
+        let _ellipse = ellipse
         let _text = text
         let _textAlign = textAlign
         let _textSize = textSize
@@ -564,6 +581,7 @@ class TreeNode
             _strokeWeight = renderTarget.strokeWeight
             _line = renderTarget.line
             _rect = renderTarget.rect
+            _ellipse = renderTarget.ellipse
             _text = renderTarget.text
             _textAlign = renderTarget.textAlign
             _textSize = renderTarget.textSize
@@ -649,14 +667,32 @@ class TreeNode
         _fill(0, 0, 0)
 
         let i = 0
+        let had_arrow = false
+        let cwidth = this.totalWidth()
+        let cheight = this.totalHeight(false)
         while (i < this.arrows.length)
         {
-            if (this.arrows[i].from === this)// && this.arrows[i].to && !this.arrows[i].to.dead)
-                this.arrows[i].draw(xoff,yoff)
+            if (this.arrows[i].from === this) {// && this.arrows[i].to && !this.arrows[i].to.dead)
+                had_arrow = true
+                let [dir, diry] = this.arrows[i].xoff1 > cwidth/2 ? [1, 0] : this.arrows[i].xoff1 < -cwidth/2 ? [-1, 0] : [0, 1]
+                this.arrows[i].draw(xoff,yoff,
+                    dx+(this.draw_circle ? dir*(cwidth*1.3/2) : 0),
+                    dy+(this.draw_circle ? cheight*(0.55 + diry*1.3*0.5)-this.textHeight()/2 : this.textHeight()/2),
+                    TreeNodeColors[this.arrow_color][0], TreeNodeColors[this.arrow_color][1], TreeNodeColors[this.arrow_color][2])
+            }
             else
                 this.arrows.splice(i,1)
 
             i += 1
+        }
+    
+        if (this.draw_circle && had_arrow) {
+            _stroke(TreeNodeColors[this.arrow_color][0], TreeNodeColors[this.arrow_color][1], TreeNodeColors[this.arrow_color][2])
+
+            _strokeWeight(2)
+            _fill(0, 0, 0, 0)
+            _ellipse(dx, dy - this.textHeight()/2 + cheight*0.55, cwidth*1.3, cheight*1.3)
+            _stroke(0, 0, 0)
         }
     }
 
