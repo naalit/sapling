@@ -67,7 +67,7 @@ function LoadTreeRepresentation(treeRep)
 
         node.text = data.text
         node.color = data.color
-        node.text_color = data.text_color
+        node.text_color = data.text_color || "dark"
         node.id = id
         node.recalculate()
         node.countSpaces()
