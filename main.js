@@ -430,6 +430,14 @@ function Update()
                                     ["Green", function () { node.color = "green"; AddChange() } ],
                                     ["Dark", function () { node.color = "dark"; AddChange() } ],
                                 ]],
+                                ["Change Text Color", [
+                                    ["Default", function () { node.text_color = "default"; AddChange() } ],
+                                    ["Highlighter", function () { node.text_color = "highlighter"; AddChange() } ],
+                                    ["Blue", function () { node.text_color = "blue"; AddChange() } ],
+                                    ["Red", function () { node.text_color = "red"; AddChange() } ],
+                                    ["Green", function () { node.text_color = "green"; AddChange() } ],
+                                    ["Dark", function () { node.text_color = "dark"; AddChange() } ],
+                                ]],
                                 ["Arrows", [
                                     ["Add", function () {
                                         let arrow = new Arrow(node)

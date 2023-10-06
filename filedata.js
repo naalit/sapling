@@ -9,6 +9,7 @@ function GetTreeRepresentation(rootNode)
         nodeData[node.id] = {
             text : node.text,
             color : node.color,
+            text_color : node.text_color,
             isRoot : !node.parent,
         }
 
@@ -66,6 +67,7 @@ function LoadTreeRepresentation(treeRep)
 
         node.text = data.text
         node.color = data.color
+        node.text_color = data.text_color
         node.id = id
         node.recalculate()
         node.countSpaces()

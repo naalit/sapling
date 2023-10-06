@@ -30,6 +30,7 @@ class TreeNode
         this.parent = null
         this.dead = false
         this.color = "default"
+        this.text_color = "dark"
         CurrentNodeID += 1
     }
 
@@ -641,9 +642,11 @@ class TreeNode
         let w2 = _textWidth(subText)
         _textSize(FontSize)
 
+        _fill(TreeNodeColors[this.text_color][0], TreeNodeColors[this.text_color][1], TreeNodeColors[this.text_color][2])
         _text(mainText, dx-w1/2-w2/2, dy + 6)
         _textSize(SubFontSize)
         _text(subText, dx+w1/2-w2/2, dy + 10)
+        _fill(0, 0, 0)
 
         let i = 0
         while (i < this.arrows.length)
