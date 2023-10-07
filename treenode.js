@@ -222,6 +222,12 @@ class TreeNode
         }
 
         if (arrows) {
+            if (this.draw_circle && this.arrows.length) {
+                // The height of the circle
+                biggestHeight = Math.max(biggestHeight,
+                    biggestHeight*(0.55 + 1.3*0.5) - this.textHeight()/2)
+            }
+
             for (let i=0; i<this.arrows.length; i++)
             {
                 let arrow = this.arrows[i]
